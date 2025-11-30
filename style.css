@@ -254,3 +254,10 @@ body {
   font-size: 0.8rem;
   color: var(--text-muted);
 }
+
+.stat-rank {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
