@@ -1,7 +1,7 @@
 // script.js
 
-// Path to the JSON produced by your Python script
-const TEAM_DATA_URL = "data/eric_team_stats.json";
+// Manifest listing all fantasy teams and their JSON files
+const TEAM_MANIFEST_URL = "data/teams_index.json";
 
 // --- Utility helpers --------------------------------------------------------
 
@@ -16,7 +16,7 @@ function toFloat(value) {
 }
 
 // Aggregate relevant fantasy stats for one team-json payload
-function computeTeamSummary(teamJson) {
+function computeTeamSummary(teamJson, overrideLabel) {
   const players = teamJson.players || [];
 
   const skaters = players.filter(
@@ -63,8 +63,7 @@ function computeTeamSummary(teamJson) {
 
   const powerPlayPoints = powerPlayGoals + powerPlayAssists;
 
-  // Placeholder simple "score" if you ever want to sort cards.
-  // Adjust this function to match your league's scoring system.
+  // Placeholder team score – tune to match your league rules later
   const fantasyScore =
     goals +
     assists +
@@ -76,7 +75,7 @@ function computeTeamSummary(teamJson) {
     avgGaa * 5;
 
   return {
-    teamName: teamJson.team_name || "Unnamed Team",
+    teamName: overrideLabel || teamJson.team_name || "Unnamed Team",
     seasonId: teamJson.season_id,
     players,
     skaters,
@@ -99,7 +98,7 @@ function computeTeamSummary(teamJson) {
 
 // --- Rendering --------------------------------------------------------------
 
-function renderTeamCard(summary) {
+function renderTeamCard(summary, rank) {
   const container = document.getElementById("team-cards");
   if (!container) return;
 
@@ -113,7 +112,8 @@ function renderTeamCard(summary) {
       <div>
         <div class="team-name">${summary.teamName}</div>
         <div class="team-meta">
-          <span class="meta-chip meta-chip--accent">Season ${summary.seasonId}</span>
+          <span class="meta-chip meta-chip--accent">Rank #${rank}</span>
+          <span class="meta-chip">Season ${summary.seasonId}</span>
           <span class="meta-chip">${summary.skaters.length} skaters</span>
           <span class="meta-chip">${summary.goalies.length} goalies</span>
         </div>
@@ -182,8 +182,8 @@ function renderRosterTable(summary) {
     const ra = roleOrder[a.fantasy_role] || 99;
     const rb = roleOrder[b.fantasy_role] || 99;
     if (ra !== rb) return ra - rb;
-    return (a.matched_name || a.requested_name || "").localeCompare(
-      b.matched_name || b.requested_name || ""
+    return (a.matched_name || a.name || a.requested_name || "").localeCompare(
+      b.matched_name || b.name || b.requested_name || ""
     );
   });
 
@@ -222,7 +222,7 @@ function renderRosterTable(summary) {
         <tr>
           <td>${name}</td>
           <td class="roster-role">${role}</td>
-          <td>${isGoalie ? (p.games_played || "") : p.games_played || ""}</td>
+          <td>${p.games_played || ""}</td>
           <td>${goals || ""}</td>
           <td>${assists || ""}</td>
           <td>${points || ""}</td>
@@ -268,27 +268,62 @@ function renderRosterTable(summary) {
   `;
 }
 
-// --- Bootstrap --------------------------------------------------------------
+// --- Bootstrap: load all teams ----------------------------------------------
 
 async function init() {
   try {
-    const res = await fetch(TEAM_DATA_URL);
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}`);
+    // 1. Load manifest
+    const manifestRes = await fetch(TEAM_MANIFEST_URL);
+    if (!manifestRes.ok) {
+      throw new Error(`Failed to load manifest: HTTP ${manifestRes.status}`);
     }
-    const teamJson = await res.json();
-    const summary = computeTeamSummary(teamJson);
+    const manifest = await manifestRes.json();
+    const teamEntries = manifest.teams || [];
 
-    renderTeamCard(summary);
-    renderRosterTable(summary);
+    // 2. Load each team JSON
+    const summaries = [];
+
+    for (const entry of teamEntries) {
+      const filePath = entry.url || `data/${entry.file}`;
+      try {
+        const res = await fetch(filePath);
+        if (!res.ok) {
+          console.error(`Failed to load team file ${filePath}: HTTP ${res.status}`);
+          continue;
+        }
+        const teamJson = await res.json();
+        const summary = computeTeamSummary(teamJson, entry.label);
+        summaries.push(summary);
+      } catch (err) {
+        console.error(`Error loading team file ${filePath}:`, err);
+      }
+    }
+
+    if (summaries.length === 0) {
+      throw new Error("No team summaries could be loaded.");
+    }
+
+    // 3. Sort by fantasy score (descending)
+    summaries.sort(
+      (a, b) => b.totals.fantasyScore - a.totals.fantasyScore
+    );
+
+    // 4. Render cards in rank order
+    summaries.forEach((summary, index) => {
+      renderTeamCard(summary, index + 1);
+    });
+
+    // 5. Show roster for top-ranked team (you can change this behaviour later)
+    renderRosterTable(summaries[0]);
   } catch (err) {
-    console.error("Failed to load team data:", err);
-    const container = document.getElementById("team-cards");
-    if (container) {
-      container.innerHTML =
-        '<p style="color:#f88;">Failed to load team data. Check the JSON path in script.js.</p>';
+    console.error("Failed to initialize app:", err);
+    const cards = document.getElementById("team-cards");
+    if (cards) {
+      cards.innerHTML =
+        '<p style="color:#f88;">Failed to load teams. Check teams_index.json and file paths.</p>';
     }
   }
 }
 
 init();
+
