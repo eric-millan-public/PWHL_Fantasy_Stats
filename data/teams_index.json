@@ -1,0 +1,44 @@
+{
+  "teams": [
+    {
+      "id": "eric",
+      "label": "Eric's Team",
+      "file": "eric_team_stats.json"
+    },
+    {
+      "id": "team2",
+      "label": "Team 2",
+      "file": "Team2_stats.json"
+    },
+    {
+      "id": "team3",
+      "label": "Team 3",
+      "file": "Team3_stats.json"
+    },
+    {
+      "id": "team4",
+      "label": "Team 4",
+      "file": "Team4_stats.json"
+    },
+    {
+      "id": "team5",
+      "label": "Team 5",
+      "file": "Team5_stats.json"
+    },
+    {
+      "id": "team6",
+      "label": "Team 6",
+      "file": "Team6_stats.json"
+    },
+    {
+      "id": "team7",
+      "label": "Team 7",
+      "file": "Team7_stats.json"
+    },
+    {
+      "id": "team8",
+      "label": "Team 8",
+      "file": "Team8_stats.json"
+    }
+  ]
+}
