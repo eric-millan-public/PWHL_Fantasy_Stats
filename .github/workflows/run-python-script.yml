@@ -1,9 +1,15 @@
-name: Run PWHL fantasy stats script
+name: Update PWHL fantasy stats
 
 on:
-  push:
-    branches: [ main ]     # change if your default branch is different
-  workflow_dispatch:        # allow manual runs from the Actions tab
+  # Run every day at 12:00 UTC
+  # ≈ 4am Pacific in winter, 5am in summer
+  schedule:
+    - cron: '0 12 * * *'
+  # Allow manual runs from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write   # allow the workflow to push commits
 
 jobs:
   run-script:
@@ -16,7 +22,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'   # or the version you use locally
+          python-version: '3.11'   # or whatever you use locally
 
       - name: Install dependencies
         run: |
@@ -25,11 +31,18 @@ jobs:
 
       - name: Run stats script
         run: |
-          python scripts/main.py
+          python main.py
 
-      # Optional: upload the data/ outputs as an artifact you can download
-      - name: Upload stats JSON
-        uses: actions/upload-artifact@v4
-        with:
-          name: fantasy-stats-json
-          path: data/*.json
+      - name: Commit and push updated stats
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Only add the JSONs under data/
+          git add data/*.json
+
+          # Commit if there are changes; otherwise do nothing
+          git commit -m "Update fantasy stats [skip ci]" || echo "No changes to commit"
+
+          # Push back to the repo
+          git push
