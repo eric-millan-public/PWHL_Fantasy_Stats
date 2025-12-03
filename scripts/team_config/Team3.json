@@ -1,0 +1,22 @@
+{
+  "team_name": "Team 3",
+  "season_id": 7,
+  "forwards": [
+    "Kristýna Kaltounková",
+    "Sarah Fillier",
+    "Brianne Jenner",
+    "Julia Gosling",
+    "Jenn Gardiner",
+    "Jamie Lee Rattray"
+  ],
+  "defence": [
+    "Sophie Jaques",
+    "Allie Munroe",
+    "Jocelyne Larocque",
+    "Emma Greco"
+  ],
+  "goalies": [
+    "Hannah Murphy",
+    "Emerance Maschmeyer"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "team_name": "Team 6",
+  "season_id": 7,
+  "forwards": [
+    "Daryl Watts",
+    "Jessie Eldridge",
+    "Britta Curl-Salemme",
+    "Jade Downie-Landry",
+    "Susanna Tapani",
+    "Emma Maltais"
+  ],
+  "defence": [
+    "Renata Fast",
+    "Jaime Bourbonnais",
+    "Sidney Morin",
+    "Rylind MacKinnon"
+  ],
+  "goalies": [
+    "Corinne Schroeder",
+    "Raygan Kirk"
+  ]
+}

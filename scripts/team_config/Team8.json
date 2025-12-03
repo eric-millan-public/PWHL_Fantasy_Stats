@@ -1,0 +1,22 @@
+{
+  "team_name": "Team 8",
+  "season_id": 7,
+  "forwards": [
+    "Jenna Buglioni",
+    "Sarah Nurse",
+    "Jesse Compher",
+    "Hannah Miller",
+    "Dominique Petrie",
+    "Michela Cava"
+  ],
+  "defence": [
+    "Emma Bergesen",
+    "Claire Thompson",
+    "Jessica DiGirolamo",
+    "Erin Ambrose"
+  ],
+  "goalies": [
+    "Nicole Hensley",
+    "Maddie Rooney"
+  ]
+}

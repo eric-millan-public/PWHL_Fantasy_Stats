@@ -1,0 +1,22 @@
+{
+  "team_name": "Team 4",
+  "season_id": 7,
+  "forwards": [
+    "Casey O'Brien",
+    "Marie-Philip Poulin",
+    "Kendall Coyne Schofield",
+    "Gabbie Hughes",
+    "Shay Maloney",
+    "Natalie Spooner"
+  ],
+  "defence": [
+    "Nicole Gosling",
+    "Ella Shelton",
+    "Cayla Barnes",
+    "Maggie Flaherty"
+  ],
+  "goalies": [
+    "Carly Jackson",
+    "Gwyneth Philips"
+  ]
+}

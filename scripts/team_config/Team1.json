@@ -1,0 +1,22 @@
+{
+  "team_name": "Eric's Team",
+  "season_id": 7,
+  "forwards": [
+    "Hannah Brandt",
+    "Kelly Pannek",
+    "Grace Zumwinkle",
+    "Taylor Heise",
+    "Taylor Girard",
+    "Alex Carpenter"
+  ],
+  "defence": [
+    "Jincy Roese",
+    "Aneta Tejralová",
+    "Emily Brown",
+    "Savannah Harmon"
+  ],
+  "goalies": [
+    "Aerin Frankel",
+    "Sandra Abstreiter"
+  ]
+}

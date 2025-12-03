@@ -1,0 +1,22 @@
+{
+  "team_name": "Team 5",
+  "season_id": 7,
+  "forwards": [
+    "Ella Huber",
+    "Hilary Knight",
+    "Emily Clark",
+    "Hannah Bilka",
+    "Alina Müller",
+    "Brooke McQuigge"
+  ],
+  "defence": [
+    "Rory Guilday",
+    "Megan Keller",
+    "Sydney Bard",
+    "Daniela Pejšová"
+  ],
+  "goalies": [
+    "Kayle Osborne",
+    "Abigail Levy"
+  ]
+}

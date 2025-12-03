@@ -1,0 +1,22 @@
+{
+  "team_name": "Team 2",
+  "season_id": 7,
+  "forwards": [
+    "Anne Cherkowski",
+    "Anna Skohina",
+    "Abby Hustler",
+    "Fanuza Kadirova",
+    "Abby Roque",
+    "Shiann Darkangelo"
+  ],
+  "defence": [
+    "Haley Winn",
+    "Kendall Cooper",
+    "Mellissa Channell-Watkins",
+    "Amanda Boulier"
+  ],
+  "goalies": [
+    "Sanni Ahola",
+    "Ann-Renée Desbiens"
+  ]
+}
