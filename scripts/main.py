@@ -13,11 +13,16 @@ BASE_URL = "https://lscluster.hockeytech.com/feed/index.php"
 API_KEY = "446521baf8c38984"
 CLIENT_CODE = "pwhl"
 
-# Default season if not specified in team JSON
 DEFAULT_SEASON_ID = 8
 
-TEAMS_DIR = Path("team_config") 
-OUTPUT_DIR = Path("output")
+# Base repo directory (folder that contains main.py, data/, scripts/, etc.)
+ROOT_DIR = Path(__file__).resolve().parent
+
+# Folder with your team config JSON files
+TEAMS_DIR = ROOT_DIR / "scripts" / "team_config"
+
+# Folder where you want the *_stats.json outputs
+OUTPUT_DIR = ROOT_DIR / "data"
 
 # Optional: name aliases if your fantasy name doesn't match API name exactly
 # Keys and values should be in "normal" human-readable form;
